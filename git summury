@@ -1,0 +1,157 @@
+
+git --version
+git config --global user.name "kim.choong.wan"
+git config --global user.email "kim.choong.wan@gmail.com"
+git config --global user.name
+git config --global user.email
+git config --global init.defaultBranch main
+git config --global init.defaultBranch
+
+git init
+  -- 현재 디렉토리를 git repository가 관리하는 디렉토리로 초기화 한다.
+  -- .git 디렉토리를 생성한다.
+
+git status
+  -- work directory와 repository의 상태를 확인한다.
+
+git add <파일명>
+  -- 파일명에 해당하는 파일명은 git이 추적하는 파일에 포함시킨다.
+git add .
+  -- 생성, 수정된 모든 파일을 add한다.
+git rm --cached <파일명>
+  -- 추적된 파일에서 제외한다.
+git rm -f <파일명>
+  -- 추적된 파일에서 제외하고 파일을 삭제한다.
+  
+git commit
+  -- 커밋한다.
+git commit -m <커밋메시지>
+  -- 커밋메시지를 포함하여 커밋
+  -- git commit -m "first commit"
+git commit -am <커밋메시지>
+  -- 모든 추적대상 파일을 add 하고 커밋
+
+git reset --hard <되돌리고 싶은 시점의 commit의 hash>
+  -- 해당시점으로 commit버전을 되돌리기
+git revert <취소하고 내용의 commit의 hash>
+  -- 해당커밋의 변경내역을 취소하는 커밋을 만든다.
+git log
+  -- commit 로그 확인
+git log --all --decorate --oneline --graph
+  -- --all : 모든 브랜치
+  -- --oneline : commit을 한 줄로 표현한다.
+  -- --graph : 그래프로 표현한다.
+
+git branch <생성하고자하는 브랜치명>
+  -- 해당브랜치명으로 브랜치를 생성한다.
+  -- ex) git branch bug-fix-api001
+git branch 
+  -- 로컬의 branch 목록을 출력
+git checkout <변경하고자하는브랜치명>
+git checkout -- <file>
+  -- <file> 에 해당 하는 변경사항을 버리고 다시 checkout 한다.
+  -- ex) git checkout -- door
+
+git switch <변경하고자하는브랜치명>
+  -- 현재의 브랜치를 변경한다.
+git branch -d <삭제하고자하는 브랜치명>
+  -- 브랜치를 삭제한다. (작업이 되어있는 branch가 다른 branch merge되어 있지 않으면 삭제할 수 없다.)
+git branch -D <삭제하고자하는 브랜치명>
+  -- 브랜치를 강제로 삭제한다.
+git branch -m <기존의 브랜치명> <변경하고 싶은 브랜치명>
+  -- 브랜치명을 변경한다.
+  -- ex) git branch -m master main
+git branch -M <브랜치명>
+  -- git branch -M main
+
+git checkout -b <브랜치명>
+  -- 해당 branch명으로 branch를 생성하고 해당 브랜치로 변경한다.
+  -- ex )git checkout -B add-coach
+git switch -c <branch명>
+  -- 해당 branch명으로 branch를 생성하고 해당 브랜치로 변경한다.
+  -- ex )git switch -c add-coach
+
+git reset <commit hash>
+  -- hash에 해당하는 commit 상태로 되돌린다.
+git revert <commit hash>
+  -- hash 에 해당한 commit 내역을 취소하는 commit을 만든다.
+git revert --no-edit <commit hash>
+  -- --no-edit commit message를 생략한다.
+
+git clone -u <원격저장소명> <원격브렌치>
+git clone -upload-pack <원격저장소명> <원격브렌치>
+  -- 새로운 디렉토리에 repository에 복제한다.
+  -- ex) git clone -u origin https://kim-choongwan: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@github.com/kim-choongwan/git-test.git
+  -- ex) git clone -u origin https://github.com/kim-choongwan/git-test.git
+
+git remote add <원격저장소명> <원격저장소>
+  -- <원격저장소>를 <원격저장소명>으로 원격 Repository를 추가한다.
+  -- ex) git remote add origin https://github.com/kim-choongwan/git-test.git
+git remote
+  -- 설정되어 있는 원격 repository의 정보를 조회한다.
+git remote -v
+git remote --verbose
+  -- 설정되어 있는 원격 repository의 정보를 상세조회한다.
+git remote remove <원격저장소명>
+  -- 설정되어 있는 원격저장소를 삭제한다.
+git remote get-url <name>
+  -- ex) git remote get-url origin
+git remote set-url <name> <newurl>
+  -- ex) git remote set-url origin "https://kim-choongwan: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@github.com/kim-choongwan/git-test.git"
+
+ 
+
+
+git push
+  -- 원격 저장소에 추가된 commit내역을 push한다.
+  -- 원격에 변경사항이 발생되었다면 push 는 실패한다.
+    -- 변경사항을 pull해야만 push할 수 있다.
+git push -u <원격저장소명> <원격브렌치>
+git push --set-upstream <원격저장소명> <원격브렌치>
+  -- -u : 해당 로컬 브랜치에서 push를 할 upstream 정보를 세팅하여 기억하게 한다. 앞으로 원격저장소명,원격브랜치를 생략해도 된다.
+  -- ex) git push -u origin main
+
+
+
+git pull
+  -- 원격의 commit사항을 당겨온다.
+  -- 충돌이 있을 경우, 옵션을 주지 않으면 merge 방식으로 병합을 시도한다.
+git pull --no-rebase
+  -- --no-rebase 는 default설정이므로 git pull과 동일
+  -- merge 방식으로 충돌을 해결한다.
+git pull --rebase
+  -- --rebase 충돌이 있을 경우 rebase 방식으로 충돌을 해결한다.
+
+
+
+
+git pull --no-rebase - merge 방식
+
+소스트리에서 확인해보기
+reset으로 되돌린 다음 아래 방식도 해보기
+
+
+
+
+
+git fetch
+  -- 다른 Repository에서 branches 와 tags 정보를 가져온다.
+git fetch --all -v
+  -- --all 모든 원격에서 
+  -- -v --verbose 자세히
+
+-- git에 첫 push 하기
+echo "# fdf" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/kim-choongwan/fdf.git
+git push -u origin main
+
+-- git 내려받기
+git clone -u origin https://github.com/kim-choongwan/git-test.git
+
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+
